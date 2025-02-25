@@ -1,0 +1,19 @@
+<google-map height="90vh" width="100vw" [center]="center" [zoom]="zoom">
+  <map-marker
+    *ngFor="let marker of visibleMarkers()"
+    #markerRef="mapMarker"
+    [position]="{ lat: marker.lat, lng: marker.lng }"
+    [title]="marker.title"
+    [icon]="marker.icon"
+    (mapClick)="openInfoWindow(marker, markerRef)" 
+  ></map-marker> <!-- ✅ IMPORTANTE: Asegúrate de cerrar correctamente la etiqueta aquí -->
+
+  <map-info-window #infoWindow>
+    <h3>{{ selectedMarker?.title }}</h3>
+    <p>Ubicación: {{ selectedMarker?.lat }}, {{ selectedMarker?.lng }}</p>
+    <a [href]="'https://www.google.com/maps/search/?api=1&query=' + selectedMarker?.lat + ',' + selectedMarker?.lng"
+      target="_blank">
+      Ver en Google Maps
+    </a>
+  </map-info-window>
+</google-map>
